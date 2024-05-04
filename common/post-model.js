@@ -1,5 +1,5 @@
 /* eslint-disable import/no-unresolved */
-import SimpleSchema from 'simpl-schema';
+import SimpleSchema from 'meteor/aldeed:simple-schema';
 /* eslint-enable import/no-unresolved */
 
 export default ({ Meteor, Mongo, LikeableModel, CommentableModel, LinkableModel, LinkParent, ServerTime }) => {
@@ -52,7 +52,6 @@ export default ({ Meteor, Mongo, LikeableModel, CommentableModel, LinkableModel,
                 }
                 return undefined;
             },
-            index: 1,
             denyUpdate: true,
         },
         createdAt: {
@@ -63,7 +62,6 @@ export default ({ Meteor, Mongo, LikeableModel, CommentableModel, LinkableModel,
                 }
                 return undefined;
             },
-            index: -1,
             denyUpdate: true,
         },
         updatedAt: {
@@ -95,9 +93,9 @@ export default ({ Meteor, Mongo, LikeableModel, CommentableModel, LinkableModel,
         * The user who created the post
         * @returns {User} The user who sent the post
         */
-        poster() {
+        async poster() {
             const posterId = this.posterId;
-            return Meteor.users.findOne({ _id: posterId });
+            return Meteor.users.findOneAsync({ _id: posterId });
         }
 
         /**

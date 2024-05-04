@@ -5,6 +5,9 @@ import { LikesCollection } from 'meteor/socialize:likeable';
 
 import { Post, PostableModel, PostsCollection } from '../common/common.js';
 
+PostsCollection.createIndexAsync({ poserId: 1 })
+PostsCollection.createIndexAsync({ createdAt: -1 })
+
 PostsCollection.allow({
     update(userId, post) {
         return userId && post.canUpdate();
