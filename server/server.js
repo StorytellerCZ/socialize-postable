@@ -5,8 +5,12 @@ import { LikesCollection } from 'meteor/socialize:likeable';
 
 import { Post, PostableModel, PostsCollection } from '../common/common.js';
 
-PostsCollection.createIndexAsync({ poserId: 1 })
-PostsCollection.createIndexAsync({ createdAt: -1 })
+try {
+    PostsCollection.createIndexAsync({ poserId: 1 })
+    PostsCollection.createIndexAsync({ createdAt: -1 })
+} catch(e) {
+    console.debug('Failed to create indexes for posts collection.')
+}
 
 PostsCollection.allow({
     update(userId, post) {
