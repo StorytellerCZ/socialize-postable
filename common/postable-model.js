@@ -10,10 +10,19 @@ export default ({ Meteor, LinkParent, Post, PostsCollection }) => {
             }
         }
         addPost(body) {
+            if (Meteor.isServer) {
+                return this.addPostAsync(body);
+            }
             new Post({
                 body,
                 ...this.getLinkObject(),
             }).save();
+        }
+        async addPostAsync(body) {
+            new Post({
+                body,
+                ...this.getLinkObject(),
+            }).saveAsync();
         }
 
         /**
