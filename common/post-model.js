@@ -75,6 +75,23 @@ export default ({ Meteor, Mongo, LikeableModel, CommentableModel, LinkableModel,
         body: {
             type: SimpleSchema.oneOf(String, Object),
         },
+        editHistory: {
+            type: Array,
+            optional: true
+        },
+        'editHistory.$': {
+            type: Object,
+        },
+        'editHistory.$.body': {
+            type: SimpleSchema.oneOf(String, Object),
+        },
+        'editHistory.$.editedAt': {
+            type: Date,
+        },
+        'editHistory.$.editedBy': {
+            type: String,
+            regEx: SimpleSchema.RegEx.Id,
+        }
     });
 
     // Attach the schema
